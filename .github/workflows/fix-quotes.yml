@@ -1,0 +1,13 @@
+name: Fix smart quotes
+on: workflow_dispatch
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          find . -name "*.jsx" -o -name "*.js" -o -name "*.ts" -o -name "*.tsx" | \
+            xargs sed -i "s/['']/'/g; s/[""]/\"/g"
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Fix smart quotes"

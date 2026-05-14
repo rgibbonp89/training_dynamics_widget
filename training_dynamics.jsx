@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from ‘react’;
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid, Legend, ReferenceLine } from ‘recharts’;
-import { Play, Pause, RotateCcw, Zap, Lock } from ‘lucide-react’;
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid, Legend, ReferenceLine } from 'recharts';
+import { Play, Pause, RotateCcw, Zap, Lock } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Typography & color

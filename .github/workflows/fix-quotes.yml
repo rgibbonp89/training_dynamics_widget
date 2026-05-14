@@ -5,9 +5,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          find . -name "*.jsx" -o -name "*.js" -o -name "*.ts" -o -name "*.tsx" | \
-            xargs sed -i "s/['']/'/g; s/[""]/\"/g"
+      - name: Fix quotes
+        run: |
+          python3 <<'PYEOF'
+          import pathlib
+          replacements = {
+              '\u2018': "'",
+              '\u2019': "'",
+              '\u201C': '"',
+              '\u201D': '"',
+          }
+          exts = {'.jsx', '.js', '.ts', '.tsx'}
+          for p in pathlib.Path('.').rglob('*'):
+              if p.suffix in exts and p.is_file():
+                  text = p.read_text(encoding='utf-8')
+                  new = text
+                  for a, b in replacements.items():
+                      new = new.replace(a, b)
+                  if new != text:
+                      p.write_text(new, encoding='utf-8')
+                      print(f'fixed {p}')
+          PYEOF
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Fix smart quotes"

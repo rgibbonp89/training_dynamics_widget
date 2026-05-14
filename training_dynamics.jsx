@@ -8,20 +8,20 @@ import { Play, Pause, RotateCcw, Zap, Lock } from 'lucide-react';
 const FONT_IMPORT = `@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap'); .serif { font-family: 'Crimson Pro', Georgia, serif; } .mono  { font-family: 'JetBrains Mono', monospace; }`;
 
 const C = {
-bg:        ‘#f5f0e6’,
-bgAlt:     ‘#ebe4d4’,
-ink:       ‘#1a1814’,
-inkSoft:   ‘#4a463d’,
-inkFaint:  ‘#8a8475’,
-rule:      ‘#c9c0a8’,
-v1:        ‘#2d5a5a’,    // teal — fast eigendirection (range, when lam1 large)
-v2:        ‘#7a2424’,    // burgundy — slow / kernel eigendirection
-gWant:     ‘#b87333’,    // copper — what loss wants (-g)
-uVel:      ‘#1a1814’,    // ink — actual velocity
-kernel:    ‘#7a2424’,    // line through origin in slow direction
-reach:     ‘#2d5a5a’,    // line through u(0) along range
-grid:      ‘#dcd4bd’,
-highlight: ‘#d4a76a’,    // honey — escape event
+bg:        '#f5f0e6',
+bgAlt:     '#ebe4d4',
+ink:       '#1a1814',
+inkSoft:   '#4a463d',
+inkFaint:  '#8a8475',
+rule:      '#c9c0a8',
+v1:        '#2d5a5a',    // teal — fast eigendirection (range, when lam1 large)
+v2:        '#7a2424',    // burgundy — slow / kernel eigendirection
+gWant:     '#b87333',    // copper — what loss wants (-g)
+uVel:      '#1a1814',    // ink — actual velocity
+kernel:    '#7a2424',    // line through origin in slow direction
+reach:     '#2d5a5a',    // line through u(0) along range
+grid:      '#dcd4bd',
+highlight: '#d4a76a',    // honey — escape event
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -65,9 +65,9 @@ return { lam1: p.lam1_0, lam2, theta: p.theta_0 };
 }
 
 const PROFILES = {
-lazy:    { name: ‘Lazy (frozen NTK)’, fn: profileLazy },
-rotate:  { name: ‘Feature-learning (rotating eigenbasis)’, fn: profileRotate },
-awaken:  { name: ‘Feature-learning (eigenvalue awakens)’,  fn: profileAwaken },
+lazy:    { name: 'Lazy (frozen NTK)', fn: profileLazy },
+rotate:  { name: 'Feature-learning (rotating eigenbasis)', fn: profileRotate },
+awaken:  { name: 'Feature-learning (eigenvalue awakens)',  fn: profileAwaken },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -167,8 +167,8 @@ const svgRef = useRef(null);
 const { onDown, onUp, makeMove } = useDrag(svgRef, fromScreen);
 const onMove = makeMove((key, val) => {
 const clamped = [Math.max(-3, Math.min(3, val[0])), Math.max(-3, Math.min(3, val[1]))];
-if (key === ‘u0’) setU0(clamped);
-else if (key === ‘y’) setY(clamped);
+if (key === 'u0') setU0(clamped);
+else if (key === 'y') setY(clamped);
 });
 
 const idx = Math.min(tIdx, traj.steps);
@@ -336,13 +336,13 @@ theta_deg: traj.thetas[i] * 180 / Math.PI,
 return arr;
 }, [traj]);
 const currentT = tIdx * traj.dt;
-const tickStyle = { fill: C.inkSoft, fontSize: 9, fontFamily: ‘JetBrains Mono, monospace’ };
+const tickStyle = { fill: C.inkSoft, fontSize: 9, fontFamily: 'JetBrains Mono, monospace' };
 
 return (
 <div className="grid grid-cols-1 gap-2">
 <div>
 <div className=“mono text-xs” style={{ color: C.inkFaint }}>Eigenvalues of K_SS(t)</div>
-<div style={{ width: ‘100%’, height: 110 }}>
+<div style={{ width: '100%', height: 110 }}>
 <ResponsiveContainer>
 <LineChart data={data} margin={{ top: 4, right: 6, left: 0, bottom: 0 }}>
 <CartesianGrid stroke={C.rule} strokeDasharray="2 4" />
@@ -358,7 +358,7 @@ tick={tickStyle} stroke={C.rule} tickFormatter={(v) => v.toFixed(1)} />
 </div>
 <div>
 <div className=“mono text-xs” style={{ color: C.inkFaint }}>Eigenbasis angle θ(t)</div>
-<div style={{ width: ‘100%’, height: 90 }}>
+<div style={{ width: '100%', height: 90 }}>
 <ResponsiveContainer>
 <LineChart data={data} margin={{ top: 4, right: 6, left: 0, bottom: 0 }}>
 <CartesianGrid stroke={C.rule} strokeDasharray="2 4" />
@@ -389,11 +389,11 @@ arr.push({ t: i * traj.dt, loss: traj.losses[i] });
 return arr;
 }, [traj]);
 const currentT = tIdx * traj.dt;
-const tickStyle = { fill: C.inkSoft, fontSize: 9, fontFamily: ‘JetBrains Mono, monospace’ };
+const tickStyle = { fill: C.inkSoft, fontSize: 9, fontFamily: 'JetBrains Mono, monospace' };
 return (
 <div>
 <div className=“mono text-xs” style={{ color: C.inkFaint }}>Loss Φ_S(u(t))</div>
-<div style={{ width: ‘100%’, height: 120 }}>
+<div style={{ width: '100%', height: 120 }}>
 <ResponsiveContainer>
 <LineChart data={data} margin={{ top: 4, right: 6, left: 0, bottom: 0 }}>
 <CartesianGrid stroke={C.rule} strokeDasharray="2 4" />
@@ -402,7 +402,7 @@ tick={tickStyle} stroke={C.rule} tickFormatter={(v) => v.toFixed(1)} />
 <YAxis tick={tickStyle} stroke={C.rule} tickFormatter={(v) => v.toFixed(2)} />
 <ReferenceLine x={currentT} stroke={C.ink} strokeDasharray="3 3" strokeWidth={1} />
 <Tooltip contentStyle={{ background: C.bg, border: `1px solid ${C.rule}`,
-fontFamily: ‘JetBrains Mono, monospace’, fontSize: 11 }}
+fontFamily: 'JetBrains Mono, monospace', fontSize: 11 }}
 labelFormatter={(v) => `t = ${Number(v).toFixed(2)}`}
 formatter={(v) => Number(v).toFixed(4)} />
 <Line type="monotone" dataKey="loss" stroke={C.uVel} strokeWidth={1.8} dot={false} isAnimationActive={false} />
@@ -418,7 +418,7 @@ formatter={(v) => Number(v).toFixed(4)} />
 // ─────────────────────────────────────────────────────────────────────────────
 export default function App() {
 const tMax = 10;
-const [mode, setMode] = useState(‘awaken’); // ‘lazy’ | ‘rotate’ | ‘awaken’
+const [mode, setMode] = useState('awaken'); // 'lazy' | 'rotate' | 'awaken'
 const [u0, setU0] = useState([2.0, 1.4]);
 const [y, setY] = useState([-0.6, -0.4]);
 
@@ -479,9 +479,9 @@ const curLoss = traj.losses[idx];
 const finalLoss = traj.losses[traj.steps];
 
 const modeBlurb = {
-lazy: ‘NTK is constant. ker K_SS is a fixed line through the origin; the reachable set from u(0) is a fixed line. If y is not on that line, u(∞) stalls at the closest point — permanently.’,
-rotate: ‘NTK eigenvectors rotate over time. ker K_SS is the same line through origin but it ROTATES with t. So the unreachable direction at t = 0 becomes reachable later — u escapes a previously-frozen subspace.’,
-awaken: ‘NTK eigenvectors are fixed but a small eigenvalue grows. ker K_SS shrinks to {0} once λ_2 lifts off zero. The previously-frozen direction comes online and the remaining residual finally drains.’,
+lazy: 'NTK is constant. ker K_SS is a fixed line through the origin; the reachable set from u(0) is a fixed line. If y is not on that line, u(∞) stalls at the closest point — permanently.',
+rotate: 'NTK eigenvectors rotate over time. ker K_SS is the same line through origin but it ROTATES with t. So the unreachable direction at t = 0 becomes reachable later — u escapes a previously-frozen subspace.',
+awaken: 'NTK eigenvectors are fixed but a small eigenvalue grows. ker K_SS shrinks to {0} once λ_2 lifts off zero. The previously-frozen direction comes online and the remaining residual finally drains.',
 };
 
 return (
